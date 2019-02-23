@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="pt">
+
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+
+    <title th:text = "#{titulo}"></title>
+    
+	<th:block xmlns:th="http://www.thymeleaf.org">
+	    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+	
+	    <link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+	    <link th:href="@{/css/plugins/fullcalendar/fullcalendar.css}" rel="stylesheet">
+	    <link th:href="@{/css/plugins/fullcalendar/fullcalendar.print.css}" rel='stylesheet' media='print'>
+	
+	    <link th:href="@{/css/animate.css}" rel="stylesheet">
+	    <link th:href="@{/css/style.css}" rel="stylesheet">
+	</th:block>
+
+</head>
+
+<body class="mini-navbar">
+
+<div id="wrapper">
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <img alt="image" class="rounded-circle" src="img/profile_small.jpg"/>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="block m-t-xs font-bold">David Williams</span>
+                        <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                        <li><a class="dropdown-item" href="contacts.html">Contacts</a></li>
+                        <li><a class="dropdown-item" href="mailbox.html">Mailbox</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    MP
+                </div>
+            </li>
+           
+        </ul>
+
+    </div>
+</nav>
+
+<div id="page-wrapper" class="gray-bg">
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+            	<i class="fa fa-2s fa-laptop" aria-hidden="true"></i>
+                <span class="m-r-sm text-muted welcome-message" th:text = "#{titulo}"></span>
+            </li>
+        </ul>
+
+    </nav>
+</div>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>Calendar</h2>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+       
+        <div class="col-lg-12">
+        	<form class="form-inline">
+			  <div class="form-group mb-2">
+			    <label for="staticEmail2" class="sr-only">Email</label>
+			    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+			  </div>
+			  <div class="form-group mx-sm-3 mb-2">
+			    <label for="inputPassword2" class="sr-only">Password</label>
+			    <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+			  </div>
+			  <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+			</form>
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5 th:text = "#{titulo_calendario}"></h5>
+                </div>
+                <div class="ibox-content">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+</div>
+
+</div>
+</div>
+
+<!-- Mainly scripts -->
+<th:block xmlns:th="http://www.thymeleaf.org">
+	<script th:src="@{/js/plugins/fullcalendar/moment.min.js}"></script>
+	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+	<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+	
+	<!-- Custom and plugin javascript -->
+	<script th:src="@{/js/inspinia.js}"></script>
+	<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+	
+	<!-- jQuery UI  -->
+	<script th:src="@{/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+	
+	<!-- iCheck -->
+	<script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+	
+	<!-- Full Calendar -->
+	<script th:src="@{/js/plugins/fullcalendar/fullcalendar.min.js}"></script>
+</th:block>
+<script>
+
+    $(document).ready(function() {
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+            });
+
+        /* initialize the external events
+         -----------------------------------------------------------------*/
+
+
+        $('#external-events div.external-event').each(function() {
+
+            // store data so the calendar knows to render an event upon drop
+            $(this).data('event', {
+                title: $.trim($(this).text()), // use the element's text as the event title
+                stick: true // maintain when user navigates (see docs on the renderEvent method)
+            });
+
+            // make the event draggable using jQuery UI
+            $(this).draggable({
+                zIndex: 1111999,
+                revert: true,      // will cause the event to go back to its
+                revertDuration: 0  //  original position after the drag
+            });
+
+        });
+
+
+        /* initialize the calendar
+         -----------------------------------------------------------------*/
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        $('#calendar').fullCalendar({
+        	navLinks: true,
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek,agendaDay'
+            },
+            eventClick: function(event, element) {
+                event.title = "CLICKED!";
+                $('#calendar').fullCalendar('updateEvent', event);
+            },
+             events: [
+                {
+                    title: 'All Day Event',
+                    start: new Date(y, m, 1)
+                },
+                {
+                    title: 'Long Event',
+                    start: new Date(y, m, d-5),
+                    end: new Date(y, m, d-2)
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: new Date(y, m, d-3, 16, 0),
+                    allDay: false
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: new Date(y, m, d+4, 16, 0),
+                    allDay: false
+                },
+                {
+                    title: 'Meeting',
+                    start: new Date(y, m, d, 10, 30),
+                    allDay: false
+                },
+                {
+                    title: 'Lunch',
+                    start: new Date(y, m, d, 12, 0),
+                    end: new Date(y, m, d, 14, 0),
+                    allDay: false
+                },
+                {
+                    title: 'Birthday Party',
+                    start: new Date(y, m, d+1, 19, 0),
+                    end: new Date(y, m, d+1, 22, 30),
+                    allDay: false
+                },
+                {
+                    title: 'Click for Google',
+                    start: new Date(y, m, 28),
+                    end: new Date(y, m, 29),
+                    url: 'http://google.com/'
+                }
+            ]
+         });
+
+
+    });
+
+</script>
+</body>
+
+</html>
