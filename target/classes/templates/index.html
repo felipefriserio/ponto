@@ -3,86 +3,154 @@
 
 <head lang="pt">
 
-    <meta charset="utf-8"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 
-    <title th:text = "#{titulo}"></title>
-    
-	<th:block xmlns:th="http://www.thymeleaf.org">
-	    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-	    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
-	
-	    <link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
-	
-	    <link th:href="@{/css/plugins/fullcalendar/fullcalendar.css}" rel="stylesheet">
-	    <link th:href="@{/css/plugins/fullcalendar/fullcalendar.print.css}" rel='stylesheet' media='print'>
-	
-	    <link th:href="@{/css/animate.css}" rel="stylesheet">
-	    <link th:href="@{/css/style.css}" rel="stylesheet">
-	</th:block>
+<title th:text="#{titulo}"></title>
+
+<th:block xmlns:th="http://www.thymeleaf.org">
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/fullcalendar/fullcalendar.css}"
+		rel="stylesheet">
+	<link th:href="@{/css/plugins/fullcalendar/fullcalendar.print.css}"
+		rel='stylesheet' media='print'>
+
+	<link th:href="@{/css/animate.css}" rel="stylesheet">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</th:block>
 
 </head>
 
 <body>
 
-<div id="wrapper">
+	<div id="wrapper">
 
-<div id="" class="gray-bg">
-<div class="row border-bottom">
-    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            
-        </div>
-    </nav>
-</div>
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-8">
-        <h2 th:text = "#{titulo_calendario}"></h2>
-    </div>
-</div>
-<div class="wrapper wrapper-content">
-    <div class="row animated fadeInDown">
-       
-        <div class="col-lg-12">
-            <div class="ibox ">
-                <div class="ibox-content">
-                    <div id="calendar"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="footer">
-</div>
+		<div id="" class="gray-bg">
+			<div class="row border-bottom">
+				<nav class="navbar navbar-static-top" role="navigation"
+					style="margin-bottom: 0">
+					<div class="navbar-header"></div>
+				</nav>
+			</div>
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-lg-8">
+					<h2 th:text="#{titulo_calendario}"></h2>
+				</div>
+			</div>
+			<div class="wrapper wrapper-content">
+				<div class="row animated fadeInDown">
 
-</div>
-</div>
+					<div class="col-lg-12">
+						<div class="ibox ">
+							<div class="ibox-content">
+								<div id="calendar"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-<!-- Mainly scripts -->
-<th:block xmlns:th="http://www.thymeleaf.org">
-	<script th:src="@{/js/plugins/fullcalendar/moment.min.js}"></script>
-	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
-	<script th:src="@{/js/popper.min.js}"></script>
-	<script th:src="@{/js/bootstrap.js}"></script>
-	<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
-	<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+		</div>
+	</div>
+
+	<!-- Mainly scripts -->
+	<th:block xmlns:th="http://www.thymeleaf.org">
+		<script th:src="@{/js/plugins/fullcalendar/moment.min.js}"></script>
+		<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.js}"></script>
+		<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+		<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+		<!-- Custom and plugin javascript -->
+		<script th:src="@{/js/inspinia.js}"></script>
+		<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+
+		<!-- jQuery UI  -->
+		<script th:src="@{/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+
+		<!-- iCheck -->
+		<script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+
+		<!-- Full Calendar -->
+		<script th:src="@{/js/plugins/fullcalendar/fullcalendar.min.js}"></script>
+	</th:block>
+	<script>
 	
-	<!-- Custom and plugin javascript -->
-	<script th:src="@{/js/inspinia.js}"></script>
-	<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
-	
-	<!-- jQuery UI  -->
-	<script th:src="@{/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
-	
-	<!-- iCheck -->
-	<script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
-	
-	<!-- Full Calendar -->
-	<script th:src="@{/js/plugins/fullcalendar/fullcalendar.min.js}"></script>
-</th:block>
-<script>
+	function gravaMarcacao(){
+        var marcacao = {
+	        tipo	 : 'ENTRADA',
+	        marcacao : ''
+        };
+        
+		$.ajax({
+            type: 'POST',
+            url: 'https://controle-ponto-service.herokuapp.com/pontoService/ponto',
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(marcacao),
+            success: function () {
+            	 $('#calendar').fullCalendar('renderEvent', {
+                    title: 'dynamic event',
+                    start: moment(),
+                  });
+            },
+            error: function () {
+                alert('Erro ao adicionar contato!');
+            }
+        });
+	}
 
     $(document).ready(function() {
+	        var eventos = [];
+	        
+	        $.ajax({
+	            type:  'GET',
+	            async: 'false',
+	            url:   'https://controle-ponto-service.herokuapp.com/pontoService/ponto',
+	            success: function (marcacoes) {
+	            	$.each(marcacoes, function (i, marcacao) {
+				        var marcacaoDePonto = {title:"", start:""};
+				        
+				        marcacaoDePonto.title = marcacao.tipo;
+				        marcacaoDePonto.start = marcacao.marcacao;
+				        
+				        eventos.push(marcacaoDePonto); 
+	                });
+	            	
+	            	/* initialize the calendar
+			         -----------------------------------------------------------------*/
+			        $('#calendar').fullCalendar({
+			            defaultView: 'month',
+			            navLinks: true,
+			            
+			            events :eventos,
+
+			            header: {
+			              left: 'prev,next today',	
+			              center: 'title,addEventButton',
+			           	  right: 'month,agendaWeek,agendaDay'
+			            },
+
+			            customButtons: {
+			              addEventButton: {
+			                text: 'Marcar Ponto',
+			                click: function() {
+			                  gravaMarcacao();
+			                }
+			              }
+			            },
+			            
+			          });
+	            },
+	            error: function () {
+	                alert('Erro ao carregar marcacoes');
+	            }
+	        });
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
@@ -109,31 +177,10 @@
             });
 
         });
+		
+        
 
-
-        /* initialize the calendar
-         -----------------------------------------------------------------*/
-        $('#calendar').fullCalendar({
-            defaultView: 'month',
-
-            header: {
-              left: 'prev,next today',	
-              center: 'title,addEventButton',
-           	  right: 'month,agendaWeek,agendaDay'
-            },
-
-            customButtons: {
-              addEventButton: {
-                text: 'Marcar Ponto',
-                click: function() {
-                  $('#calendar').fullCalendar('renderEvent', {
-                    title: 'dynamic event',
-                    start: moment(),
-                  });
-                }
-              }
-            }
-          });
+        
         
     });
 
